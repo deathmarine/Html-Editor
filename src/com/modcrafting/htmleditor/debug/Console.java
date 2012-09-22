@@ -38,7 +38,7 @@ public class Console implements Runnable{
 		frame.setVisible(true);
 		try{
 			pin = new PipedInputStream();
-			PipedOutputStream pout=new PipedOutputStream(pin);
+			pout=new PipedOutputStream(pin);
 			System.setOut(new PrintStream(pout,true));
 			PipedOutputStream pout2=new PipedOutputStream(pin2);
 			System.setErr(new PrintStream(pout2,true));
@@ -58,9 +58,14 @@ public class Console implements Runnable{
 		while(run){
 			if(pout!=null){
 				try {
-					if (pin.available()!=0)	{
+					if (pin.available()!=0){
 						String input= this.readLine(pin);
 						text.append(input);
+					}
+					if (pin2.available()!=0){
+						String input= this.readLine(pin2);
+						text.append(input);
+						
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
