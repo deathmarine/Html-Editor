@@ -3,11 +3,9 @@ package com.modcrafting.gui.listener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import javax.swing.JFrame;
-
 public class WListener implements WindowListener {
-
-	public WListener(JFrame frame) {
+	
+	public WListener() {
 		// TODO Auto-generated constructor stub
 	}
 
