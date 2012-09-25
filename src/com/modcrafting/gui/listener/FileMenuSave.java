@@ -20,16 +20,23 @@ public class FileMenuSave implements ActionListener {
 		frame=f;
 		window=w;
 		fc = new JFileChooser();
+		String[] extensions = {"*.phtml","*.asp","*.js","*.java","*.css","*.php","*.htm","*.html"};
+        for(String extension:extensions){
+        	fc.addChoosableFileFilter(new FileChooserFileFilter(extension));
+        }
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
         int returnVal = fc.showSaveDialog(frame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
-            //Care level drops... they can save as anything.
-            //TODO find a way to configure the damn chooser
-            window.setFile(file);
+            if(!file.getName().contains(".")){
+            	file =new File(fc.getSelectedFile().getParent(),file.getName()+".html");
+            	
+            }
     		try {
+                if(!file.exists()) file.createNewFile();
+                window.setFile(file);
 				BufferedWriter b = new BufferedWriter(new FileWriter(file,true));
 				for(String line:window.textA.getText().split("\n")){
 					b.write(line);
@@ -37,6 +44,7 @@ public class FileMenuSave implements ActionListener {
 				}
 				b.close();
 			} catch (IOException e1) {
+				e1.printStackTrace();
 	        	window.showError("Unable to write to file");
 			}
     		return;

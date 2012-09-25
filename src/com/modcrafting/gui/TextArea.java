@@ -2,19 +2,30 @@ package com.modcrafting.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.Document;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 
 import com.modcrafting.gui.listener.Format;
 
 public class TextArea {
 	JFrame frame;
 	JTextPane textA;
+	final UndoManager undo = new UndoManager();
 	public TextArea(JFrame f){
 		frame=f;
 		textA=new JTextPane();
@@ -23,6 +34,13 @@ public class TextArea {
 		textA.setEditable(true);
 		textA.setVisible(true);
 		frame.getContentPane().add(new JScrollPane(textA),BorderLayout.CENTER);
+		Document doc = textA.getDocument();
+		doc.addUndoableEditListener(new UndoableEditListener() {
+		    public void undoableEditHappened(UndoableEditEvent evt) {
+		        undo.addEdit(evt.getEdit());
+		    }
+		});
+
 	}
 	//This and Formatting the listener is probably the last things to do.
 	public void stylize(){
@@ -63,5 +81,11 @@ public class TextArea {
 	}
 	public void clear(){
 		textA.setText("");
+	}
+	public ActionMap getActionMap(){
+		return textA.getActionMap();
+	}
+	public UndoManager getUndoMan(){
+		return undo;
 	}
 }

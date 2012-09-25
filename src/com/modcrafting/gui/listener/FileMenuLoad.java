@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-
 import com.modcrafting.gui.Window;
 
 public class FileMenuLoad implements ActionListener{
@@ -19,6 +18,10 @@ public class FileMenuLoad implements ActionListener{
 		frame=f;
 		window=w;
 		fc = new JFileChooser();
+		String[] extensions = {"*.phtml","*.asp","*.js","*.java","*.css","*.php","*.htm","*.html"};
+        for(String extension:extensions){
+        	fc.addChoosableFileFilter(new FileChooserFileFilter(extension));
+        }
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -26,7 +29,6 @@ public class FileMenuLoad implements ActionListener{
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 			try {
             File file = fc.getSelectedFile();
-
 			StringBuilder builder = new StringBuilder();
 			BufferedReader list = new BufferedReader(new FileReader(file));
 			String t;

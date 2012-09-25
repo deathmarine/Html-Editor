@@ -10,7 +10,7 @@ public class Format implements DocumentListener{
 	public Format(StyledDocument sDoc2) {
 		sDoc =sDoc2;
 	}
-
+	
 	//Listen for HTML/PHP/Javascript/Java/CascadeStyleshit..other crap and format it all sexy like.
 	@Override
 	public void changedUpdate(DocumentEvent e) {

@@ -28,6 +28,9 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+import javax.swing.text.DefaultEditorKit;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 
 import com.modcrafting.gui.listener.FileMenuLoad;
 import com.modcrafting.gui.listener.FileMenuSave;
@@ -54,10 +57,8 @@ public class Window{
 	}
 	public void createMenu(){
 		JMenuBar mbar = new JMenuBar();
+		//File Menu
 		JMenu menu = new JMenu("File");
-		menu.setMnemonic(KeyEvent.VK_F);
-		menu.getAccessibleContext().setAccessibleDescription("The only menu in this program that has menu items");
-		mbar.add(menu);
 		JMenuItem menuItem = new JMenuItem("New");
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription("Describing making something new");
@@ -142,7 +143,56 @@ public class Window{
 			}
 		});
 		menu.add(menuItem);
-	
+		menu.setMnemonic(KeyEvent.VK_F);
+		menu.getAccessibleContext().setAccessibleDescription("The only menu in this program that has menu items");
+		mbar.add(menu);
+		//Edit Menu
+		menu = new JMenu("Edit");
+		menu.setMnemonic(KeyEvent.VK_E); 
+        menuItem = new JMenuItem("Undo");
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
+		menuItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				UndoManager undo = textA.getUndoMan();
+	            try {
+	                if (undo.canUndo()) {
+	                    undo.undo();
+	                }
+	            } catch (CannotUndoException e) {
+	            }
+			}
+		});
+        menu.add(menuItem);
+        menuItem = new JMenuItem("Redo");
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK));
+		menuItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				UndoManager undo = textA.getUndoMan();
+	            try {
+	                if (undo.canRedo()) {
+	                    undo.redo();
+	                }
+	            } catch (CannotUndoException e) {
+	            }
+			}
+		});
+        menu.add(menuItem);
+        menu.addSeparator();
+        menuItem = new JMenuItem(new DefaultEditorKit.CutAction());
+        menuItem.setText("Cut");
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
+        menu.add(menuItem);
+        menuItem = new JMenuItem(new DefaultEditorKit.CopyAction());
+        menuItem.setText("Copy");
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+        menu.add(menuItem);
+        menuItem = new JMenuItem(new DefaultEditorKit.PasteAction());
+        menuItem.setText("Paste");
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
+        menu.add(menuItem);
+        mbar.add(menu);
 		frame.setJMenuBar(mbar);
 	}
 	public void statusBar(){
