@@ -20,34 +20,41 @@ public class TextArea {
 		textA=new JTextPane();
 		textA.setBackground(Color.white);
 		textA.setForeground(Color.black);
+		textA.setEditable(true);
+		textA.setVisible(true);
+		frame.getContentPane().add(new JScrollPane(textA),BorderLayout.CENTER);
+	}
+	//This and Formatting the listener is probably the last things to do.
+	public void stylize(){
 		StyledDocument sDoc = textA.getStyledDocument();
-		sDoc.addDocumentListener(new Format(textA));
+		sDoc.addDocumentListener(new Format(sDoc));
+		
 		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
         Style regular = sDoc.addStyle("regular", def);
         StyleConstants.setFontFamily(def, "SansSerif");
+        
         Style s = sDoc.addStyle("italic", regular);
         StyleConstants.setItalic(s, true);
+        
         s = sDoc.addStyle("bold", regular);
         StyleConstants.setBold(s, true);
+        
         s = sDoc.addStyle("underline", regular);        
         StyleConstants.setUnderline(s, true);
+        
         Style red = sDoc.addStyle("red", def);
  	    StyleConstants.setForeground(red, Color.red);
  	    red = sDoc.addStyle("redunderline", red);
  	    StyleConstants.setUnderline(red, true);
-        Style green = sDoc.addStyle("red", def);
+ 	    
+        Style green = sDoc.addStyle("green", def);
  	    StyleConstants.setForeground(green, Color.green);
- 	    green = sDoc.addStyle("redunderline", green);
+ 	    
+ 	    green = sDoc.addStyle("greenunderline", green);
  	    StyleConstants.setUnderline(green, true);
-		//textA.setFont(new Font("Console", Font.PLAIN, 10)); //WTF is a good default editing Font!
-		//textA.setLineWrap(true);
-		//textA.setWrapStyleWord(true);
-		textA.setEditable(true);
-		textA.setVisible(true);
-		//frame.getContentPane().add(new JScrollPane(textA),BorderLayout.CENTER);
-		frame.getContentPane().add(new JScrollPane(textA),BorderLayout.CENTER);
 		
 	}
+	
 	public void setText(String string) {
 		textA.setText(string);
 	}
@@ -57,5 +64,4 @@ public class TextArea {
 	public void clear(){
 		textA.setText("");
 	}
-	//Make runnable to auto check HTML/PHP/Javascript/Java/CascadeStyleshit..other crap and format it all sexy like.
 }

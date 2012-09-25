@@ -51,7 +51,6 @@ public class Window{
 		frame.setVisible(true);
 		textA=new TextArea(frame);
 		textA.setText("");
-		
 	}
 	public void createMenu(){
 		JMenuBar mbar = new JMenuBar();
@@ -67,7 +66,6 @@ public class Window{
 			public void actionPerformed(ActionEvent arg0) {
 				textA.setText("");
 			}
-			
 		});
 		menu.add(menuItem);
 		menuItem = new JMenuItem("Open File...");
@@ -93,7 +91,6 @@ public class Window{
 						builder.append("\n");
 					}
 					textA.setText(builder.toString());
-					
 				} catch (HeadlessException e1) {
 					showError("Unable to open: "+in);
 				} catch (MalformedURLException e1) {
@@ -104,61 +101,57 @@ public class Window{
 			}
 		});
 		menu.add(menuItem);
-		
-	menuItem = new JMenuItem("Save");
-	menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-	menuItem.getAccessibleContext().setAccessibleDescription("Saves a file");
-	menuItem.addActionListener(new ActionListener(){
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(file!=null){
+		menuItem = new JMenuItem("Save");
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		menuItem.getAccessibleContext().setAccessibleDescription("Saves a file");
+		menuItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(file!=null){
 				//I know sloppy but hey it'll do.
 				//Coding, especially java is being as lazy as possible.
 				//Pull requests are real lazy asses showing how to be better at being moar lazy LMAO...
-	    		try {
-					BufferedWriter b = new BufferedWriter(new FileWriter(file,true));
-					for(String line:textA.getText().split("\n")){
-						b.write(line);
-						b.newLine();
+					try {
+						BufferedWriter b = new BufferedWriter(new FileWriter(file,true));
+						for(String line:textA.getText().split("\n")){
+							b.write(line);
+							b.newLine();
+						}
+						b.close();
+					} catch (IOException e1) {
+						showError("Unable to write to file");
 					}
-					b.close();
-				} catch (IOException e1) {
-		        	showError("Unable to write to file");
+				}else{
+					new FileMenuSave(frame, getWindow());
 				}
-			}else{
-				new FileMenuSave(frame, getWindow());
 			}
-		}
-		
-	});
-	menu.add(menuItem);
-	menuItem = new JMenuItem("Save as...");
-	menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
-	menuItem.getAccessibleContext().setAccessibleDescription("Save as specific file.");
-	menuItem.addActionListener(new FileMenuSave(frame, this));
-	menu.add(menuItem);
-	menuItem = new JMenuItem("Exit");
-	menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
-	menuItem.getAccessibleContext().setAccessibleDescription("Exit the program.");
-	menuItem.addActionListener(new ActionListener(){
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
-		}
-	});
-	menu.add(menuItem);
+		});
+		menu.add(menuItem);
+		menuItem = new JMenuItem("Save as...");
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+		menuItem.getAccessibleContext().setAccessibleDescription("Save as specific file.");
+		menuItem.addActionListener(new FileMenuSave(frame, this));
+		menu.add(menuItem);
+		menuItem = new JMenuItem("Exit");
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
+		menuItem.getAccessibleContext().setAccessibleDescription("Exit the program.");
+		menuItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		menu.add(menuItem);
 	
-	frame.setJMenuBar(mbar);
+		frame.setJMenuBar(mbar);
 	}
 	public void statusBar(){
-
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED));
 		panel.setPreferredSize(new Dimension(frame.getWidth(), 16));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		label = new JLabel();
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		
 		panel.add(label);
 		frame.add(panel, BorderLayout.SOUTH);
 	}
