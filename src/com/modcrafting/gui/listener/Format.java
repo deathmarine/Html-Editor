@@ -2,7 +2,6 @@ package com.modcrafting.gui.listener;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 
 public class Format implements DocumentListener{
@@ -20,15 +19,6 @@ public class Format implements DocumentListener{
 	}
 	@Override
 	public void removeUpdate(DocumentEvent e) {
-	}
 	
-	public void TemporaryWorkArea(DocumentEvent e){
-		try {
-			String change = e.getDocument().getText(e.getOffset(),e.getLength());
-			if(change.contains("<")&&change.contains(">")){
-				//String syntax = change.substring(change.indexOf("<"), change.indexOf(">"));
-				//sDoc.setCharacterAttributes(change.indexOf("<"), syntax.length(), sDoc.getStyle("green"), true);
-			}
-		} catch (BadLocationException e1) {	}
 	}
 }

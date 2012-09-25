@@ -109,9 +109,6 @@ public class Window{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(file!=null){
-				//I know sloppy but hey it'll do.
-				//Coding, especially java is being as lazy as possible.
-				//Pull requests are real lazy asses showing how to be better at being moar lazy LMAO...
 					try {
 						BufferedWriter b = new BufferedWriter(new FileWriter(file,true));
 						for(String line:textA.getText().split("\n")){

@@ -1,7 +1,5 @@
 package com.modcrafting.htmleditor;
 
-import java.io.IOException;
-
 import javax.swing.JFrame;
 
 import com.modcrafting.gui.Splash;

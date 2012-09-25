@@ -2,9 +2,6 @@ package com.modcrafting.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -16,8 +13,6 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
-import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
 import com.modcrafting.gui.listener.Format;
