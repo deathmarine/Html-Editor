@@ -3,10 +3,12 @@ package com.modcrafting.gui.listener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import com.modcrafting.gui.Window;
+
 public class WListener implements WindowListener {
-	
-	public WListener() {
-		// TODO Auto-generated constructor stub
+	Window window;
+	public WListener(Window w) {
+		window=w;
 	}
 
 	@Override
@@ -23,7 +25,6 @@ public class WListener implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
